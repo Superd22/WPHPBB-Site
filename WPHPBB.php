@@ -10,6 +10,8 @@
   namespace wphpbb;
 
   require_once("controller/post.php");
+  require_once("controller/phpbb.php");
+  require_once("controller/core-patcher.php");
   require_once("event/listener.php");
 
   class WPHPBB {

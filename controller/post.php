@@ -2,7 +2,6 @@
 class Post {
 
   function __construct() {
-
   }
 
   public function cross_post_box() {
@@ -11,11 +10,15 @@ class Post {
 
   public function cross_post_box_content() {
     echo '<input type="hidden" name="wphpbb_meta_box_nonce" value="', wp_create_nonce(basename(__FILE__)), '" />';
+    $this->get_cross_postable_forums();
   }
 
   private function is_already_cross_posted() {
     global $wpdb;
 
+  }
+
+  private function get_cross_postable_forums() {
   }
 
 
