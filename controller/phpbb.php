@@ -18,7 +18,12 @@ class Phpbb {
     $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : 'C:\Users\david\OneDrive\Documents\GitHub\SCFR\Forum\\';
     $phpEx = substr(strrchr(__FILE__, '.'), 1);
 
-    include_once($phpbb_root_path . 'common.' . $phpEx);
+    $crosspatcher = new CrossPatcher($phpbb_root_path, $phpEx);
+    $crosspatcher->make_phpbb_compatible();
+
+    eval($crosspatcher->exec());
+
+    $request->enable_super_globals();
 
     $this->user = $user;
     $this->auth = $auth;
@@ -35,7 +40,7 @@ class Phpbb {
     $this->user->setup();
   }
 
-  public function get_user_data() {
+  private function get_user_data() {
     if($this->user->data > 1) {
       return $this->user->data;
     }
@@ -64,5 +69,4 @@ class Phpbb {
   }
 }
 
-$test = new Phpbb();
 ?>
