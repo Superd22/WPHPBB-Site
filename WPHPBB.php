@@ -12,6 +12,8 @@
   require_once("controller/post.php");
   require_once("controller/cross-patcher.php");
   require_once("controller/phpbb.php");
+  require_once("controller/user.php");
+  require_once("controller/user_integrator.php");
   require_once("event/listener.php");
 
   class WPHPBB {

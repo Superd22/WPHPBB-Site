@@ -15,17 +15,17 @@ class CrossPatcher {
   }
 
   private function strip_php_tags($code) {
-    $code = str_replace("<?php ", "", $code);
+    $code = str_replace("<?php", "", $code);
     $code = str_replace("?>", "", $code);
 
-    return $code;
+    return trim($code);
   }
 
   public function exec() {
     $code = $this->toExec;
     $this->toExec = "";
 
-    return '?>' . $code;
+    return $code;
   }
 
   public function make_phpbb_compatible() {
@@ -36,7 +36,7 @@ class CrossPatcher {
     $function_content = $this->fix_function_make_clickable($function_content);
 
     $content = $this->replace_function_content($common, $function_content);
-
+    
     $this->prepare($content);
   }
 
@@ -45,7 +45,7 @@ class CrossPatcher {
   }
 
   private function replace_function_content($common, $function_content) {
-    return str_replace('require($phpbb_root_path . \'includes/functions_content.\' . $phpEx);', strip_tags($function_content), $common);
+    return str_replace('require($phpbb_root_path . \'includes/functions_content.\' . $phpEx);', $this->strip_php_tags($function_content), $common);
   }
 
 }
