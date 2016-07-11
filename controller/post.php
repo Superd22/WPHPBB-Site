@@ -15,15 +15,21 @@ class Post {
 
     $checked = $this->is_already_cross_posted($post->ID) ? "checked disabled" : "";
 
-    echo "<select name='wphpbb_cross_forum' {$checked}>";
-    foreach($this->get_cross_postable_forums() as $id => $option)
-    echo "<option value='{$id}'>{$option}</option>";
-    echo "</select>";
-    echo "<br />";
-    echo "<input type='checkbox' id='wphpbb_do_cross_post' name='wphpbb_do_cross_post' {$checked}> <label for='wphpbb_do_cross_post'>Cross poster l'article ?</label>";
-
+    if($checked == "") {
+      echo "<select name='wphpbb_cross_forum' {$checked}>";
+      foreach($this->get_cross_postable_forums() as $id => $option)
+      echo "<option value='{$id}'>{$option}</option>";
+      echo "</select>";
+      echo "<br />";
+      echo "<input type='checkbox' id='wphpbb_do_cross_post' name='wphpbb_do_cross_post' {$checked}> <label for='wphpbb_do_cross_post'>Cross poster l'article ?</label>";
+    }
 
     if($checked != "") {
+      $this->phpbb->make_phpbb_env();
+      $details = $this->get_xposted_details($post->ID);
+      echo "<p>Article cross-posté dans {$details['forum_name']}</br >
+      <a target='_blank' href='../Forum/viewtopic.php?f={$details['forum_id']}&t={$details['topic_id']}'>{$details['post_subject']}</a></p>
+      <p>Toute mise à jour site entrainera une mise à jour forum.</p>";
       echo "<input type='hidden' name='wphpbb_do_cross_post' value='on'>";
       echo "<input type='hidden' name='wphpbb_cross_forum' value='0'>";
     }
@@ -107,9 +113,25 @@ class Post {
       $topic_url = \submit_post($mode, $post->post_title, $topicUsername, POST_NORMAL, $poll, $data);
 
       if($mode === "post") add_post_meta($post_id, "_wphpbb_cross_topic_id", $data["topic_id"]);
+      else {
+        if($post->post_title != $details['topic_title'])
+          $this->update_topic_title($data['topic_id'], $post->post_title);
+      }
+      
       $user->phpbb_switch_back();
-      die();
     }
+  }
+
+  private function update_topic_title($topic_id, $post_title) {
+    $update = $this->phpbb->db->sql_build_array(
+      'UPDATE',
+      array(
+        'topic_title' => $post_title,
+      )
+    );
+    $sql = 'UPDATE ' . TOPICS_TABLE . ' SET ' . $update . ' WHERE topic_id="' . (integer) $topic_id . '" ';
+
+    return $this->phpbb->db->sql_query($sql);
   }
 
   public function verif_cross_post() {
@@ -148,7 +170,7 @@ class Post {
 
     $details[$postID] = false;
 
-    $sql = 'SELECT t.topic_id, p.post_id, p.post_subject, p.forum_id, p.poster_id, t.topic_time, t.topic_type, t.topic_first_poster_name, f.forum_name FROM ' . POSTS_TABLE . ' AS p, ' . TOPICS_TABLE . ' AS t, ' . FORUMS_TABLE . ' AS f WHERE
+    $sql = 'SELECT t.topic_id, p.post_id, p.post_subject, t.topic_title, p.forum_id, p.poster_id, t.topic_time, t.topic_type, t.topic_first_poster_name, f.forum_name FROM ' . POSTS_TABLE . ' AS p, ' . TOPICS_TABLE . ' AS t, ' . FORUMS_TABLE . ' AS f WHERE
     t.topic_id = ' . (int) $postID . ' AND
     t.topic_id = p.topic_id AND (
     f.forum_id = p.forum_id OR
