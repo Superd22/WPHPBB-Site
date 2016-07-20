@@ -112,14 +112,18 @@ class Post {
 
       $topic_url = \submit_post($mode, $post->post_title, $topicUsername, POST_NORMAL, $poll, $data);
 
-      if($mode === "post") add_post_meta($post_id, "_wphpbb_cross_topic_id", $data["topic_id"]);
+      if($mode === "post") $this->set_is_crossposted($post_id, $data['topic_id']);
       else {
         if($post->post_title != $details['topic_title'])
           $this->update_topic_title($data['topic_id'], $post->post_title);
       }
-      
+
       $user->phpbb_switch_back();
     }
+  }
+
+  static function set_is_crossposted($post_id, $topic_id) {
+    return \add_post_meta($post_id, "_wphpbb_cross_topic_id", $topic_id, true);
   }
 
   private function update_topic_title($topic_id, $post_title) {
@@ -142,13 +146,13 @@ class Post {
     else return false;
   }
 
-  private function is_already_cross_posted($id) {
+  static function is_already_cross_posted($id) {
     $topic = get_post_meta($id, "_wphpbb_cross_topic_id", true);
     if($topic > 1) return true;
     else return false;
   }
 
-  private function get_cross_posted_topic_id($id) {
+  static function get_cross_posted_topic_id($id) {
     return get_post_meta($id, "_wphpbb_cross_topic_id", true);
   }
 

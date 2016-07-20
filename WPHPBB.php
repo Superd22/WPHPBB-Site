@@ -15,6 +15,10 @@
   require_once("controller/user.php");
   require_once("controller/user_integrator.php");
   require_once("event/listener.php");
+  require_once("migrations/wpunited/post_integrator.php");
+
+  $t = new migrations\wpunited\Post_integrator();
+  //$t->do_integration();
 
   class WPHPBB {
     function __construct() {
