@@ -1,8 +1,28 @@
 <?php namespace wphpbb\admin\setting;
 class Setting {
-  public function __construct($slug, $title, $callback, $page = false, $section = false) {
+  protected $page;
+  protected $section;
+  protected $callback;
+  protected $slug;
+  protected $title;
+  protected $description;
 
-    if(!$page) $page = ""
+  public function __construct($slug, $title, $description, $callback = null, $page = false, $section = false) {
+    $settings = \WPHPBB\controller\Settings::get_settings();
+
+    $this->slug = $slug;
+    $this->title = $title;
+    $this->description = $description;
+
+    if(!$page) $this->page = $settings['dev']['menu_name'];
+    if(!$section) $this->section = $settings['dev']['menu_main_section'];
+    if(!$callback) $this->callback = array(&$this, "display_callback");
+
+    $this->add_setting_field();
+  }
+
+  public function display_callback() {
+
   }
 
   protected function add_setting_field() {

@@ -14,6 +14,8 @@ class Settings implements \ArrayAccess {
         "option_name" => "wphpbb_settings",
         "menu_name" => "wphpbb-main-settings",
         "menu_main_section" => "wphpbb-main-section",
+        "menu_crosspost_section" => "wphpbb-crosspost-section",
+        "menu_users_section" => "wphpbb-users-section",
       ),
     );
   }

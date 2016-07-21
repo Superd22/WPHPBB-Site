@@ -16,6 +16,10 @@
   require_once("controller/user_integrator.php");
   require_once("controller/settings.php");
   require_once("admin/admin-settings.php");
+  require_once("admin/setting/setting.php");
+  require_once("admin/setting/text.php");
+  require_once("admin/setting/checkbox.php");
+  require_once("admin/setting/phpbb-path.php");
   require_once("event/listener.php");
   require_once("migrations/wpunited/post_integrator.php");
 
