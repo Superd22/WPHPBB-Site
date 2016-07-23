@@ -11,8 +11,6 @@ class Post_integrator {
       $this->handle_post($topic);
       echo "<hr />";
     }
-
-    die();
   }
 
   private function handle_post($topic) {
