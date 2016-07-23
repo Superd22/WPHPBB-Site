@@ -15,8 +15,11 @@ class Setting {
     $this->description = $description;
 
     if(!$page) $this->page = $settings['dev']['menu_name'];
+    else $this->page = $page;
     if(!$section) $this->section = $settings['dev']['menu_main_section'];
+    else $this->section = $section;
     if(!$callback) $this->callback = array(&$this, "display_callback");
+    else $this->callback = $callback;
 
     $this->add_setting_field();
   }

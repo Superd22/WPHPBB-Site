@@ -18,6 +18,8 @@ class Settings implements \ArrayAccess {
         "menu_users_section" => "wphpbb-users-section",
       ),
     );
+
+    $this->_settings["wordpress"] = get_option($this->_settings['dev']['option_name']);
   }
 
   public function offsetSet($offset, $value) {
