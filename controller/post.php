@@ -58,8 +58,8 @@ class Post {
         $topic_id = 0;
         $mode = "post";
       }
-      // TO DO CHANGE !!
-      $content = kable_filter($post->post_content);
+      
+      $post->post_content = apply_filters("wphpbb_cross_post", $post->post_content, $post);
 
       $user = new User($post->post_author, $this->phpbb);
 
@@ -69,7 +69,7 @@ class Post {
       require_once($phpbb_root_path . 'includes/functions_posting.' . $phpEx);
 
       $uid = $poll = $bitfield = $options = '';
-      \generate_text_for_storage($content, $uid, $bitfield, $options, true, true, true);
+      \generate_text_for_storage($post->post_content, $uid, $bitfield, $options, true, true, true);
 
       $topicUsername = $this->phpbb->user->data["username"];
 
@@ -81,8 +81,8 @@ class Post {
         'enable_smilies' => true,
         'enable_urls' => true,
         'enable_sig' => true,
-        'message' => $content,
-        'message_md5' => md5($content),
+        'message' => $post->post_content,
+        'message_md5' => md5($post->post_content),
         'bbcode_bitfield' => $bitfield,
         'bbcode_uid' => $uid,
         'post_edit_locked'	=> ITEM_LOCKED,
