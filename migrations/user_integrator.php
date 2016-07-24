@@ -1,11 +1,11 @@
-<?php namespace wphpbb\migrations;
+<?php namespace WPHPBB\migrations;
 
 class UserIntegrator {
   private $phpbb;
   private $hadWPunited;
 
   function __construct() {
-    $this->phpbb = new \wphpbb\controller\Phpbb();
+    $this->phpbb = new \WPHPBB\controller\Phpbb();
     $this->phpbb->make_phpbb_env();
     $this->check_wp_united();
   }

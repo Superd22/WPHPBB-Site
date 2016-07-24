@@ -1,4 +1,4 @@
-<?php namespace wphpbb\admin\setting;
+<?php namespace WPHPBB\admin\setting;
 class PhpbbPath extends Text {
 
 }

@@ -1,4 +1,4 @@
-<?php namespace wphpbb\controller;
+<?php namespace WPHPBB\controller;
 
 class Settings implements \ArrayAccess {
   private static $_instance = null;

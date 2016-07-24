@@ -1,4 +1,4 @@
-<?php namespace wphpbb\admin\setting;
+<?php namespace WPHPBB\admin\setting;
 class Setting {
   protected $page;
   protected $section;
@@ -8,7 +8,7 @@ class Setting {
   protected $description;
 
   public function __construct($slug, $title, $description, $callback = null, $page = false, $section = false) {
-    $settings = \wphpbb\controller\Settings::get_settings();
+    $settings = \WPHPBB\controller\Settings::get_settings();
 
     $this->slug = $slug;
     $this->title = $title;

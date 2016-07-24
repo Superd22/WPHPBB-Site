@@ -1,4 +1,4 @@
-<?php namespace wphpbb\controller;
+<?php namespace WPHPBB\controller;
 class Post {
   protected $phpbb;
 
@@ -7,7 +7,7 @@ class Post {
   }
 
   public function cross_post_box() {
-    $settings = \wphpbb\controller\Settings::get_settings();
+    $settings = \WPHPBB\controller\Settings::get_settings();
     if($settings["wordpress"]["wphpbb-crosspost"] == "on")
       \add_meta_box("wphpbb-cross-posting", "WPHPBB Cross posting", array(&$this, "cross_post_box_content"), "post", "side", "low");
   }

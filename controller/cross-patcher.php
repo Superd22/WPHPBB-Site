@@ -1,4 +1,4 @@
-<?php namespace wphpbb\controller;
+<?php namespace WPHPBB\controller;
 class CrossPatcher {
   private $toExec;
   private $phpbb_root_path;
