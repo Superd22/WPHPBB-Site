@@ -28,7 +28,7 @@ class Phpbb {
     }
     define('IN_PHPBB', true);
 
-    $settings = \WPHPBB\controller\Settings::get_settings();
+    $settings = \wphpbb\controller\Settings::get_settings();
     $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : $settings['wordpress']['phpbb-path'];
     $phpEx = substr(strrchr(__FILE__, '.'), 1);
 

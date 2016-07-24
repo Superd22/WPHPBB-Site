@@ -6,7 +6,7 @@ class listener {
   }
 
   private function add_actions() {
-    $settings = \WPHPBB\controller\Settings::get_settings();
+    $settings = \wphpbb\controller\Settings::get_settings();
     if(isset($settings["wordpress"]["activate"]) && $settings["wordpress"]["activate"] === "on") {
       // Posting
       \add_action('admin_menu', array(new \wphpbb\controller\Post(), 'cross_post_box'));

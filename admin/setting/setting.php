@@ -8,7 +8,7 @@ class Setting {
   protected $description;
 
   public function __construct($slug, $title, $description, $callback = null, $page = false, $section = false) {
-    $settings = \WPHPBB\controller\Settings::get_settings();
+    $settings = \wphpbb\controller\Settings::get_settings();
 
     $this->slug = $slug;
     $this->title = $title;

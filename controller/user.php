@@ -1,4 +1,4 @@
-<?php namespace WPHPBB\controller;
+<?php namespace wphpbb\controller;
 class User {
   private $id;
   private $phpbb;
