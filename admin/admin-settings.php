@@ -10,7 +10,8 @@ class AdminSettings {
   }
 
   public function wphpbb_menu() {
-    $settings = WPHPBB\controller\Settings::get_settings();
+
+    $settings = \WPHPBB\controller\Settings::get_settings();
 
     add_options_page( 'WPHPBB Settings', 'WPHPBB', 'manage_options', $settings['dev']['menu_name'], "WPHPBB\admin\AdminSettings::main_menu_display" );
     register_setting( $settings['dev']['option_name'], $settings['dev']['option_name'], array(&$this, 'validate_setting'));

@@ -5,9 +5,9 @@
  Author: Super d
  Version: 1.0
  Author URI: https://github.com/Superd22/
- Text Domain: wphpbb
+ Text Domain: WPHPBB
 */
-  namespace wphpbb;
+  namespace WPHPBB;
 
   require_once("controller/post.php");
   require_once("controller/cross-patcher.php");
@@ -22,7 +22,6 @@
   require_once("event/listener.php");
   require_once("migrations/wpunited/post_integrator.php");
   require_once("migrations/user_integrator.php");
-
   class WPHPBB {
     function __construct() {
       $this->listener = new event\listener();
