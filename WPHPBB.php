@@ -22,6 +22,8 @@
   require_once("event/listener.php");
   require_once("migrations/wpunited/post_integrator.php");
   require_once("migrations/user_integrator.php");
+  require_once("helper/Post.php");
+  
   class WPHPBB {
     function __construct() {
       $this->listener = new event\listener();
